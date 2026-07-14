@@ -29,7 +29,7 @@
                             <label for="owner-name" class="mt-1 form-label required">Owner name</label>
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-6">
                             <input type="text" name="owner_name" value="{{ old('owner_name') }}" class="form-control" id="owner-name" placeholder="Characters only" required>
 
                             <!-- error -->

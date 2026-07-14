@@ -90,9 +90,9 @@
                             @forelse($tests as $key => $record)
                                 <tr>
                                     <th scope="row">{{ $tests->firstItem() + $key }}.</th>
-                                    <td>{{ $record->invoice->invoice_no }}</td>
-                                    <td>{{ $record->test->test_group->title}}</td>
-                                    <td>{{ $record->test->title }}</td>
+                                    <td>{{ $record?->invoice?->invoice_no }}</td>
+                                    <td>{{ $record?->test?->test_group?->title}}</td>
+                                    <td>{{ $record?->test?->title }}</td>
                                     <td>{{ $record->status }}</td>
                                     <td class="print-none text-end">
                                         <a href="{{ route('report.show', $record->id) }}" class="btn table-small-button {{ $record->status =='Painding' ? 'disabled': '' }}"  title="Print"><i class="bi bi-printer"></i>

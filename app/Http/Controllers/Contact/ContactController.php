@@ -57,7 +57,7 @@ class ContactController extends Controller
         // validation
         $data = $request->validate([
             'organigation_name' => 'nullable|string|max:100',
-            'owner_name' => 'required|string|max:100',
+            'owner_name' => 'required|string|max:150',
             'fathers_name' => 'nullable|string|max:100',
             'mothers_name' => 'nullable|string|max:100',
             'gender' => 'required',

@@ -72,7 +72,7 @@
 
                     <div class="row mt-1">
                         <div class="col-12 mb-5 text-center print-show">
-                            <h4 class="slip main-title">{{ $report->test->title }} Report</h4>
+                            <h4 class="slip main-title">{{ $report?->test?->title }} Report</h4>
                         </div>
                         
                     </div>

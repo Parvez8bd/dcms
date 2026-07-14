@@ -64,7 +64,7 @@
                                                 </label>
                                             </th>
                                             <td>{{ $record->title }}</td>
-                                            <td>{{ $record->test_group->title }}</td>
+                                            <td>{{ $record?->test_group?->title }}</td>
                                             <td>{{ $record->report_time }}</td>
                                             <td>{{ $record->room }}</td>
                                             <td class="text-end">{{ $record->price}}</td>

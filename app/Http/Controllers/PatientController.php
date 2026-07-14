@@ -71,6 +71,7 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         // return $request->all();
+        // return $request->test_discount;
         //validation
         $request->validate([
             "name" => 'required|string|max:100',
@@ -93,11 +94,11 @@ class PatientController extends Controller
             "paid" => 'nullable|numeric',
         ]);
 
-       $request['discount']= $request->discount=="Null" ? 0 : $request->discount;
-       $request['paid']= $request->paid=="Null" ? 0 : $request->paid;
+        $request['discount'] = $request->discount == "Null" ? 0 : $request->discount;
+        $request['paid'] = $request->paid == "Null" ? 0 : $request->paid;
 
 
-        DB::transaction(function () use ($request,&$patient) {
+        DB::transaction(function () use ($request, &$patient) {
             // create Patient
             $patient = Patient::create([
                 "name" => $request->name,
@@ -140,14 +141,26 @@ class PatientController extends Controller
                 "paid" => $request->paid,
             ]);
 
-            $array_combine = array_combine($request->test_id, $request->test_discount);
-            // create InvoiceDetail
-            foreach ($array_combine as $test_id => $discount) {
-                // foreach ($request->test_discount as $discount) {
+            //old
+            // $array_combine = array_combine($request->test_id, $request->test_discount);
+            // // create InvoiceDetail
+            // foreach ($array_combine as $test_id => $discount) {
+            //     // foreach ($request->test_discount as $discount) {
+            //     InvoiceDetail::create([
+            //         "invoice_id" => $invoice->id,
+            //         "test_id" => $test_id,
+            //         "discount" => $discount ?? '0',
+            //     ]);
+            // }
+
+            //new
+            $discounts = $request->input('test_discount', []);
+
+            foreach ($request->test_id as $index => $test_id) {
                 InvoiceDetail::create([
-                    "invoice_id" => $invoice->id,
-                    "test_id" => $test_id,
-                    "discount" => $discount ?? '0',
+                    'invoice_id' => $invoice->id,
+                    'test_id'    => $test_id,
+                    'discount'   => $discounts[$index] ?? 0,
                 ]);
             }
 

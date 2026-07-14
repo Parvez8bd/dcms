@@ -31,8 +31,8 @@
                 </a>
 
                 <!-- search -->
-                <a href="#patients-search"
-                   class="btn top-icon-button print-none" title="Search" data-bs-toggle="collapse" role="button" aria-expanded="false">
+                <a href="#patients-search" class="btn top-icon-button print-none" title="Search"
+                    data-bs-toggle="collapse" role="button" aria-expanded="false">
                     <i class="bi bi-search"></i>
                 </a>
 
@@ -56,24 +56,26 @@
                                 <!-- Search by name -->
                                 <div class="col-12 col-sm-6 col-lg-4">
                                     <label for="name" class="form-label">Patient Name</label>
-                                    <input type="text" name="name" value="{{ request()->name }}" class="form-control" id="name" placeholder="Text Only...">
+                                    <input type="text" name="name" value="{{ request()->name }}"
+                                        class="form-control" id="name" placeholder="Text Only...">
                                 </div>
                                 <!--  Search by phone-->
                                 <div class="col-12 col-sm-6 col-lg-3">
                                     <label for="name" class="form-label">Patient Phone</label>
-                                    <input type="number" name="phone" value="{{ request()->phone }}" class="form-control" id="name" placeholder="01XXX XXXXXX">
+                                    <input type="number" name="phone" value="{{ request()->phone }}"
+                                        class="form-control" id="name" placeholder="01XXX XXXXXX">
                                 </div>
                                 <!-- Search by doctor -->
                                 <div class="col-12 col-sm-6 col-lg-3">
                                     <label for="contact_id" class="form-label">Referr doctor</label>
                                     <select name="contact_id" class="form-control" id="contact_id">
                                         <option value="" selected disabled>---</option>
-                                            @foreach ($contacts as $value)
-                                               <option value="{{ $value->id }}" {{ (request()->contact_id == $value->id) ? 'selected' : '' }}>
-                                                {{ $value->owner_name  }}
-                                               </option> 
-                                               
-                                            @endforeach
+                                        @foreach ($contacts as $value)
+                                            <option value="{{ $value->id }}"
+                                                {{ request()->contact_id == $value->id ? 'selected' : '' }}>
+                                                {{ $value->owner_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -113,14 +115,17 @@
                                     <td>{{ $patient->name ?? '' }}</td>
                                     <td>{{ $patient->phone }}</td>
                                     <td>{{ $patient->address }}</td>
-                                    <td>{{ $patient->patient_refferr->doctor->owner_name ?? '' }}</td>
+                                    <td>
+                                        {{ \Illuminate\Support\Str::limit($patient->patient_refferr?->doctor?->owner_name, 50) }}
+                                    </td>
                                     <td>{{ $patient->created_at->format('d M , Y  ') }}</td>
                                     <td class="print-none text-end">
-                                       
-                                        <a  href="{{ route('patient.show', $patient->id) }}" class="btn table-small-button" title="View Test" target="_blank">
-                                            <i class="bi bi-eye"></i> 
+
+                                        <a href="{{ route('patient.show', $patient->id) }}"
+                                            class="btn table-small-button" title="View Test" target="_blank">
+                                            <i class="bi bi-eye"></i>
                                         </a>
-                                    
+
                                         {{-- <a  href="{{ route('patient.edit', $patient->id) }}" class="btn table-small-button text-success" title="Update"><i class="bi bi-pencil-square"></i>
                                         </a>
                                     
@@ -131,11 +136,12 @@
                                             </a>
                                         </span> --}}
 
-                                        <form action="{{ route('patient.destroy', $patient->id) }}" method="post" class="d-none" id="patient-delete-{{ $patient->id }}">
+                                        <form action="{{ route('patient.destroy', $patient->id) }}" method="post"
+                                            class="d-none" id="patient-delete-{{ $patient->id }}">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                               
+
                                     </td>
                                 </tr>
                             @empty
@@ -173,10 +179,10 @@
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    
+
     @push('script')
         <script>
             $('.select2').select2();
@@ -185,12 +191,13 @@
 
     @push('style')
         <style>
-                .select2-container .select2-selection--single{
-            height:34px !important;
+            .select2-container .select2-selection--single {
+                height: 34px !important;
             }
-            .select2-container--default .select2-selection--single{
-                    border: 1px solid #ccc !important; 
-                border-radius: 0px !important; 
+
+            .select2-container--default .select2-selection--single {
+                border: 1px solid #ccc !important;
+                border-radius: 0px !important;
             }
         </style>
     @endpush
