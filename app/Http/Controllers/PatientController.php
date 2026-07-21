@@ -213,7 +213,7 @@ class PatientController extends Controller
     public function show($id)
     {
 
-        $patient = Patient::with('patient_refferr.doctor', 'invoice.invoice_details.test')->findOrFail($id);
+        $patient = Patient::with('patient_refferr.doctor', 'invoice.invoice_details.test', 'invoice.invoice_details.test.test_group')->findOrFail($id);
         // return $patient->invoice;
 
         return view('patient.show', compact('patient'));
